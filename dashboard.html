@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Agony Tools | Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { user-select: none; }
+    .fade-in { animation: fadeIn 1.5s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- nav -->
+  <nav class="flex items-center justify-between px-6 py-4 bg-gray-800">
+    <div class="text-xl font-bold">agony</div>
+    <div class="space-x-4">
+      <a href="index.html" class="hover:underline">home</a>
+      <a href="dashboard.html" class="hover:underline">dashboard</a>
+      <a href="scripts.html" class="hover:underline">scripts</a>
+    </div>
+  </nav>
+
+  <!-- main form -->
+  <div class="max-w-xl mx-auto mt-16 px-6 fade-in">
+    <h2 class="text-3xl font-bold mb-6 text-center">launch a selfbot</h2>
+
+    <form id="launchForm" class="space-y-6">
+      <div>
+        <label class="block mb-1 text-gray-300">discord token</label>
+        <input type="password" id="token" placeholder="required" class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      </div>
+
+      <div>
+        <label class="block mb-1 text-gray-300">bot name</label>
+        <input type="text" id="botName" placeholder="ex: agonybot" class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+      </div>
+
+      <div>
+        <label class="block mb-1 text-gray-300">select script</label>
+        <select id="script" class="w-full px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="outtype.py">outtype (python)</option>
+          <option value="mimic.js">mimic (js)</option>
+          <option value="last.py">last (python)</option>
+        </select>
+      </div>
+
+      <div class="flex justify-center">
+        <button type="submit" class="bg-white text-gray-900 font-semibold px-6 py-3 rounded-xl hover:bg-gray-200 transition">launch selfbot</button>
+      </div>
+    </form>
+
+    <!-- status block -->
+    <div id="statusPanel" class="mt-10 text-center hidden">
+      <p class="text-green-400 font-medium">✅ bot launched successfully</p>
+      <p class="text-gray-400 text-sm mt-1" id="statusDetails"></p>
+
+      <button id="stopBtn" class="mt-4 px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded">stop bot (soon)</button>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('launchForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const token = document.getElementById('token').value.trim();
+      const botName = document.getElementById('botName').value.trim();
+      const script = document.getElementById('script').value;
+
+      const res = await fetch('https://feed5cc08c6f.ngrok-free.app/launch-bot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token, botName, script })
+      });
+
+      if (res.ok) {
+        document.getElementById('statusPanel').classList.remove('hidden');
+        document.getElementById('statusDetails').innerText = `script "${script}" running as "${botName}"`;
+      } else {
+        alert('error launching bot');
+      }
+    });
+
+    // placeholder for stop
+    document.getElementById('stopBtn').addEventListener('click', () => {
+      alert('stop feature coming soon');
+    });
+  </script>
+</body>
+</html>
