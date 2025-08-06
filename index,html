@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Agony Tools | Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body { user-select: none; }
+    .fade-in { animation: fadeIn 2s ease-in-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white">
+
+  <!-- nav -->
+  <nav class="flex items-center justify-between px-6 py-4 bg-gray-800">
+    <div class="text-xl font-bold">agony</div>
+    <div class="space-x-4">
+      <a href="index.html" class="hover:underline">home</a>
+      <a href="dashboard.html" class="hover:underline">dashboard</a>
+      <a href="scripts.html" class="hover:underline">scripts</a>
+    </div>
+  </nav>
+
+  <!-- main content -->
+  <div class="h-screen flex flex-col justify-center items-center fade-in text-center px-6">
+    <h1 class="text-5xl font-extrabold mb-4 tracking-tight">agony selfbot system</h1>
+    <p class="text-gray-400 text-lg mb-6">outtype, outlast and pressure anyone on discord.com — for free.</p>
+    <a href="dashboard.html" class="bg-white text-gray-900 px-6 py-3 rounded-xl font-semibold hover:bg-gray-200 transition">launch dashboard</a>
+  </div>
+</body>
+</html>
